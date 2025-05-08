@@ -28,7 +28,14 @@ def get_related_links(browser):
         cl = element.get_attribute("class")
         if cl == "hatnote navigation-not-searchable ts-main":
             hatnotes.append(element)
-    return hatnotes
+    if hatnotes:
+        hatnote = random.choice(hatnotes)
+        link = hatnote.find_element(By.TAG_NAME, "a").get_attribute("href")
+    else:
+        print("Нет связанных страниц.")
+        return None
+    return link
+
 
 def main():
     find_word = input("Что ищем? ")
@@ -39,20 +46,14 @@ def main():
         print("1. Листать параграфы текущей статьи")
         print("2. Перейти на одну из связанных страниц")
         print("3. Выйти из программы")
-
         choice = input("Введите номер действия: ")
 
         if choice == "1":
             display_paragraphs(browser)
         elif choice == "2":
-            hatnotes = get_related_links(browser)
-            if hatnotes:
-                hatnote = random.choice(hatnotes)
-                link = hatnote.find_element(By.TAG_NAME, "a").get_attribute("href")
+            link = get_related_links(browser)
+            if link:
                 browser.get(link)
-                time.sleep(2)
-            else:
-                print("Нет связанных страниц.")
         elif choice == "3":
             browser.quit()
             break
