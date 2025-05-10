@@ -28,6 +28,7 @@ def get_related_links(browser):
         cl = element.get_attribute("class")
         if cl == "hatnote navigation-not-searchable ts-main":
             hatnotes.append(element)
+            # print(element.find_element(By.TAG_NAME, "a").get_attribute("text"))
     if hatnotes:
         hatnote = random.choice(hatnotes)
         link = hatnote.find_element(By.TAG_NAME, "a").get_attribute("href")

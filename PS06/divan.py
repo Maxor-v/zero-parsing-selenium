@@ -17,9 +17,7 @@ time.sleep(5)
 divans = driver.find_elements(By.CSS_SELECTOR, 'div.LlPhw')
 parsed_data = []
 
-i=0
 for divan in divans:
-    i = +1
     try:
         product_name = divan.find_element(By.CSS_SELECTOR, 'span[itemprop="name"]').text
         product_price = divan.find_element(By.CSS_SELECTOR, 'meta[itemprop="price"]').get_attribute('content')
